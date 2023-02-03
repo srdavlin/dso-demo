@@ -41,7 +41,7 @@ pipeline {
 	stage('Docker BnP') {
 	  steps {
 	    container('kaniko') {
-	      sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --force --destination=hub.docker.com/repositories/srdefense/dso-demo'
+	      sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=https://hub.docker.com/repositories/srdefense/dso-demo'
 	    } 
 	  }  
         }
