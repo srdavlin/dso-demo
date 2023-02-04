@@ -26,10 +26,9 @@ spec:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:v1.9.1-debug
       imagePullPolicy: Always
-      command:
-        - sleep
-      args:
-        - 99d
+      args: ["--dockerfile=Dockerfile",
+              "--context=git://github.com/srdavlin/dso-demo.git",
+              "--destination=srdefense/dso-demo"]
       volumeMounts:
         - name: jenkins-docker-cfg
           mountPath: /kaniko/.docker
