@@ -23,6 +23,12 @@ spec:
           name: docker-sock
         - mountPath: /tmp/trivycache/
           name: trivycache
+    - name: SLSCAN
+      image: shiftleft/sast-scan
+      imagePullPolicy: Always
+      command:
+        - cat
+      tty: true    
     - name: kaniko
       image: gcr.io/kaniko-project/executor:v1.9.1-debug
       imagePullPolicy: Always
