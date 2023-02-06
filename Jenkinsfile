@@ -18,15 +18,8 @@ pipeline {
         }
       }
     }
-    stage('Test') {
+    stage('Static Analysis') {
       parallel {
-        stage('Static Analysis') {
-          steps {
-            container('maven') {
-              sh 'mvn test'
-            }
-          }
-        }
 	stage('SCA') {
 	  steps {
 	    container('maven') {
@@ -42,6 +35,26 @@ pipeline {
 	    } 
 	  } 
 	}
+	stage('OSS License Checker') {
+          steps {
+            container('licensefinder') {
+              sh 'ls -al'
+              sh '''#!/bin/bash --login
+                      /bin/bash --login
+                      rvm use default
+                      gem install license_finder
+                      license_finder
+		    '''
+            } 
+	  } 
+	} 
+        stage('Unit Test') {
+          steps {
+            container('maven') {
+              sh 'mvn test'
+            }
+          }
+        }
       }	
     }
     stage('Package') {
