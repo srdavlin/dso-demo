@@ -78,6 +78,7 @@ pipeline {
             }
           }
         }
+	/*
 	stage('OCI Image BnP') {
 	  steps {
 	    container('kaniko') {
@@ -85,6 +86,7 @@ pipeline {
 	    } 
 	  }  
         }
+        */
       }
     }
     stage('Image Analysis') {
