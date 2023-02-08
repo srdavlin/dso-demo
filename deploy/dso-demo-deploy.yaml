@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: dso-demo
+  name: dso-demo
+  namespace: dev  
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dso-demo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: dso-demo
+    spec:
+      containers:
+      - image: srdefense/dso-demo:v7
+        name: dso-demo
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}
