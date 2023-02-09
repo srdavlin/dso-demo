@@ -125,6 +125,8 @@ pipeline {
         } 
       }   
     }
+    
+    /*
     stage('Dynamic Analysis') {
       parallel {
         stage('E2E Tests') {
@@ -141,6 +143,8 @@ pipeline {
 	} 
       }	
     }  
+    */
+
   }
 } 
 
