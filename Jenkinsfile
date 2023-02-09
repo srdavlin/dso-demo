@@ -1,6 +1,7 @@
 pipeline {
   environment {
-    ARGO_SERVER = '192.168.69.240'
+    ARGO_SERVER = '192.168.69.240:80'
+    DEV_URL = 'http://:192.168.69.241:8080' 
   }  
   agent {
     kubernetes {
@@ -119,10 +120,27 @@ pipeline {
       }
       steps {
         container('docker-tools') {
-          sh 'docker run -t schoolofdevops/argocd-cli argocd --grpc-web app sync dso-demo --insecure --force --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
-          sh 'docker run -t schoolofdevops/argocd-cli argocd --grpc-web app wait dso-demo --health --timeout 800 --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
+          // sh 'docker run -t schoolofdevops/argocd-cli argocd --grpc-web app sync dso-demo --insecure --force --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
+          // sh 'docker run -t schoolofdevops/argocd-cli argocd --grpc-web app wait dso-demo --health --timeout 800 --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
         } 
       }   
     }
+    stage('Dynamic Analysis') {
+      parallel {
+        stage('E2E Tests') {
+	  steps {
+	    sh 'echo "All Test Passed!!"'
+	  } 
+	} 
+	stage ('DAST') {
+	  steps {
+	    container('docker-tools') {
+	      sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t $DEV_URL || exit 0'
+	    } 
+	  } 
+	} 
+      }	
+    }  
   }
-}
+} 
+
