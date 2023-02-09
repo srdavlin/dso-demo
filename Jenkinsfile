@@ -119,8 +119,8 @@ pipeline {
       }
       steps {
         container('docker-tools') {
-          sh 'docker run -t argoproj/argocd-cli:latest argocd app sync dso-demo --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
-          sh 'docker run -t argoproj/argocd-cli:latest argocd app wait dso-demo --health --timeout 3000 --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
+          sh 'docker run -t argoproj/argocd-cli:v0.10.6 argocd app sync dso-demo --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
+          sh 'docker run -t argoproj/argocd-cli:v0.10.6 argocd app wait dso-demo --health --timeout 3000 --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
         } 
       }   
     }
