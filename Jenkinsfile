@@ -113,7 +113,9 @@ pipeline {
           }     
         }
       } 
-    }  
+    } 
+
+    /*
     stage('Deploy to Dev') {
       environment {
         AUTH_TOKEN = credentials('argocd-jenkins-deployer-token')
@@ -125,8 +127,6 @@ pipeline {
         } 
       }   
     }
-    
-    /*
     stage('Dynamic Analysis') {
       parallel {
         stage('E2E Tests') {
@@ -144,7 +144,4 @@ pipeline {
       }	
     }  
     */
-
-  }
-} 
 
